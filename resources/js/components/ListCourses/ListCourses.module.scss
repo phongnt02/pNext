@@ -1,0 +1,76 @@
+.wrapper {
+    width: 100%;
+    // height: 300px;
+}
+.list-courses {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: -22px;
+}
+.heading {
+    margin: 14px 0;
+}
+
+// Courses Item
+.common-item {
+    width: 250px;
+    height: 100%;
+    margin: 26px 0;
+    margin-right: 24px;
+    color: var(--text-black-color);
+}
+.thumbnail_course {
+    position: relative;
+    border-radius: 20px;
+    height: 150px;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    img {
+        width: 250px;
+        height: 100%;
+        object-fit: fill;
+    }
+    
+    .join-course {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        transition: opacity 0.2s ease-in;
+
+    }
+    &:hover .join-course{
+        opacity: 1;
+    }
+}
+.name_courses {
+    margin: 14px 0;
+    font-size: 18px;
+    display: block;
+    white-space: nowrap; /* Ngăn không gian trống xuống dòng */
+    overflow: hidden; /* Ẩn nội dung vượt quá kích thước phần tử */
+    text-overflow: ellipsis; /* Thêm dấu ba chấm */
+}
+.infor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.value {
+    padding-left: 6px;
+}
+.cost {
+    color: #F05123;
+}
