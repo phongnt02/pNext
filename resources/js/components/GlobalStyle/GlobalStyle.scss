@@ -1,0 +1,55 @@
+@import 'normalize.css';
+:root {
+    --primary-color:#2563eb;
+    --black-color:#000;
+    --text-color:#6B7280;
+    --text-black-color:#4a4a4a;
+    --sub-background-color : #f5f6fa;
+    --font-family:'Inter',sans-serif;
+
+    // size layout
+    --default-layout-width : 1280px;
+    --default-layout-header-height : 75px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 62.5%;
+}
+body {
+    font-family: var(--font-family);
+    font-size: 1.6rem;
+    text-rendering: optimizeSpeed;
+}
+button, input , [tabindex] {
+    outline: none;
+    border: none;
+}
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+// font embeded
+@font-face {
+    font-family: Inter;
+    src: url('../../assets/font/Inter2.woff2');
+    font-weight: 600;
+}
+@font-face {
+    font-family: Inter;
+    src: url('../../assets/font/Inter.woff2');
+    font-weight: 600;
+}
+@font-face {
+    font-family: Inter;
+    src: url('../../assets/font/Inter3.woff2');
+    font-weight: 600;
+}
+@font-face {
+    font-family: Inter;
+    src: url('../../assets/font/Inter4.woff2');
+    font-weight: 600;
+}
