@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import ContentLoader from "react-content-loader";
 import style from './Introduce.module.scss';
 import images from "../../../assets/image";
 import AboutProduct from './AboutProduct';
 import AboutFeature from "./AboutFeature";
 import homeService from "../../../apiService/homeService";
-import Button from "@mui/material/Button";
 const cx = classNames.bind(style)
 
 function Introduce() {
@@ -23,23 +21,7 @@ function Introduce() {
 
     if (!data) {
         return (
-            <ContentLoader
-                speed={2}
-                width={1200}
-                height={400}
-                backgroundColor="#f0f0f0"
-            >
-                <rect x="170" y="100" rx="4" ry="4" width="1000" height="15" />
-                <rect x="170" y="130" rx="4" ry="4" width="1000" height="15" />
-                <rect x="170" y="160" rx="4" ry="4" width="1000" height="15" />
-                <rect x="170" y="190" rx="4" ry="4" width="1000" height="15" />
-                <rect x="170" y="220" rx="4" ry="4" width="1000" height="15" />
-                <rect x="170" y="250" rx="4" ry="4" width="1000" height="15" />
-                <rect x="170" y="290" rx="4" ry="4" width="1000" height="15" />
-                <rect x="170" y="320" rx="4" ry="4" width="1000" height="15" />
-                <rect x="170" y="350" rx="4" ry="4" width="1000" height="15" />
-                
-            </ContentLoader>
+          <div></div>
         )
     }
 

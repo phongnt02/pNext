@@ -3,8 +3,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import classNames from "classnames/bind";
-import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setInforLogin, setInforUser } from "../../../ReduxToolkit/authSlice";
 import { resetState } from "../../../ReduxToolkit/formSlice";
@@ -36,9 +34,6 @@ function VerificationLayout({form}) {
                 Cookies.set('Token_login',response.data.access_token, {expires: expires })
                 dispatch(setInforLogin({isLogged : true, token : Cookies.get('Token_login')}))
                 dispatch(setInforUser({name : response.data.full_name, email : data.email}))
-                toast.success('Đăng nhập thành công!',{
-                    position: toast.POSITION.TOP_CENTER
-                })
                 setTimeout(() => {
                     navigate('/')
                 }, 1500);
@@ -47,11 +42,7 @@ function VerificationLayout({form}) {
         else if(form.typeForm == 'register'){
             const response = await request.post('register/',formInput)
             if(response.data) {
-                toast.success('Tạo tài khoản thành công !')
                 dispatch(resetState())
-                toast.success('Đăng ký tài khoản thành công!',{
-                    position: toast.POSITION.TOP_CENTER
-                })
                 setTimeout(() => {
                     navigate('/login')
                 }, 1500);
@@ -99,7 +90,6 @@ function VerificationLayout({form}) {
                     </div>
                 </section>
             </div>
-            <ToastContainer autoClose={1500}></ToastContainer>
         </div>
     );
 }

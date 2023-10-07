@@ -1,6 +1,6 @@
 <?php
-Route::group(['name'=>'courses', 'middleware' => ['sanctum']], function () {
-    Route::middleware('auth:sanctum')->any('/courses', 'CoursesController@getListCourses')->name('courses.getListCourses');
+Route::group(['name'=>'courses'], function () {
+    Route::any('/courses', 'CoursesController@getListCourses')->name('courses.getListCourses');
 })
 
 ?>

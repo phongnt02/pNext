@@ -6,8 +6,6 @@ import useDebounce from '../../hooks/useDebounce'
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faEye, faEyeSlash, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 import style from './Input.module.scss';
 import { setListInput } from '../../ReduxToolkit/formSlice'
 import request from "../../apiService/axiosConfig";
@@ -82,7 +80,6 @@ const Input = React.forwardRef(({type, placeholder, filed, onSearch, onSubcribe,
     const handleReceivedNews = (email) => {
         console.log(email);
         setInputValue('')
-        toast.success(`Đăng ký nhận tin tức thành công`)
     }
 
     return (
@@ -112,7 +109,6 @@ const Input = React.forwardRef(({type, placeholder, filed, onSearch, onSubcribe,
             {onSubcribe && (
                 <>
                     <Button onClick={() => handleReceivedNews(inputValue)} className={cx('received')} primary small><FontAwesomeIcon icon={faEnvelope}/></Button>
-                    <ToastContainer autoClose={1500}></ToastContainer>
                 </>
             )}
         </div>

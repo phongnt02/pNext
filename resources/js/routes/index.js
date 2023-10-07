@@ -7,7 +7,6 @@ import HeaderLearning from '../layouts/HeaderLearning';
 import DocumentLibrary from '../pages/DocumentLibrary';
 import Entertainment from '../pages/Entertainment';
 import Community from '../pages/Community';
-import FaceDetected from '../FaceDetected';
 
 const publicRoutes = [
     {path :'/',component:Home},
@@ -18,7 +17,6 @@ const publicRoutes = [
     {path :'/documentlibrary',component:DocumentLibrary},
     {path :'/community',component:Community},
     {path :'/entertainment',component:Entertainment},
-    {path :'/faceDetected',component:FaceDetected},
 
 
 ]
