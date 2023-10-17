@@ -1,7 +1,6 @@
 .wrapper {
-    --background-purple-color:#0C0928;
-    --background-courese-color:#F9FAFB;
-    background: var(--background-purple-color);
+    --background-courses-color:#F9FAFB;
+    background: var(--primary-color);
 }
 .barner {
     height: 250px;
@@ -22,7 +21,7 @@
 }
 .current-select, .current-level {
     display: inline-block;
-    min-width: 100px;
+    min-width: 120px;
     height: 36px;
     line-height: 36px;
     text-align: center;
@@ -36,13 +35,13 @@
         margin-left: 12px;
     }
 }
-.menu-select-exam, .menu-select-level {
-    min-width: 100px;
+.menu-select-courses, .menu-select-level {
+    min-width: 120px;
     min-height: 80px;
     padding: 16px;
     margin-bottom: -16px;
 }
-.menu-select-exam-item, .menu-select-level-item {
+.menu-select-courses-item, .menu-select-level-item {
     margin-bottom: 12px;
     cursor: pointer;
     width: 100%;
@@ -53,7 +52,7 @@
 
 // courses manager
 .courses-manager {
-    background-color: var(--background-courese-color);
+    background-color: var(--background-courses-color);
     min-height: 500px;
     border-top-right-radius: 60px;
     border-top-left-radius: 60px;

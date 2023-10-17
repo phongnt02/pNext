@@ -8,7 +8,7 @@ import style from './Header.module.scss'
 import Menu from './Menu'
 import MenuItem from "./Menu/MenuItem";
 import Button from "../../../components/Button";
-import images from "../../../assets/image";
+// import images from "../../../assets/image";
 import Manager from "../../../components/Manager"
 import request from "../../../apiService/axiosConfig";
 const cx = classNames.bind(style)

@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('Permission', function (Blueprint $table) {
+            $table->id('permission_id');
+            $table->string('permission_name');
+            $table->string('permission_modules');
+            $table->unsignedBigInteger('role_id');
+        });
     }
 
     /**

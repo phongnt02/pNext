@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('User_lessons', function (Blueprint $table) {
+            $table->id('id_lesson');
+            $table->unsignedBigInteger('user_id');
+            $table->enum('type_content', ['note', 'comment'])->nullable(); 
+            $table->string('note')->nullable(); 
+            $table->string('comment')->nullable(); 
+            $table->timestamps();
+        });
     }
 
     /**

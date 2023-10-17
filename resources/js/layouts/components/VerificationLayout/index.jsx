@@ -10,7 +10,7 @@ import request from '../../../apiService/axiosConfig';
 import style from './VerificationLayout.module.scss';
 import Button from '../../../components/Button';
 import Input from "../../../components/Input";
-import image from '../../../assets/image';
+// import image from '../../../assets/image';
 
 const cx = classNames.bind(style)
 
