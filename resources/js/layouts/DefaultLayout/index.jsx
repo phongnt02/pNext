@@ -9,8 +9,8 @@ const cx = classNames.bind(style)
 function DefaultLayout({children}) {
     return (
         <div className={cx('wrapper')}>
-            <Header></Header>
-            <section className={cx('container')}>{children}</section>
+            {/* <Header></Header> */}
+            <section className="w-full">{children}</section>
             <Footer></Footer>
         </div>
     );

@@ -7,76 +7,77 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function getDataDefault () {
+
         $data = [
-            'barner' => [
-                'slogan_heading' => 'Học tiếng Nhật online',
-                'slogan_sub' => 'Chinh phục kỳ thi JLPT'
+            'introduce' => [
+                'title' => 'Các khóa học tốt nhất đang chờ đợi để nâng cao kỹ năng của bạn',
+                'provider' => 'Cung cấp cho bạn hệ thống và tài liệu trực tuyến mới nhất giúp kiến thức của bạn ngày càng phát triển',
+                'thumbnail' => asset('img/thumbnail.png')
             ],
-            'brand' => [
-                'type' => 'images',
-                'path' => 'brand'
-            ],
-            'title_feature' => 'Những gì chỉ có tại iNihon',
-            'feature' => [
-                [
-                    'pathImg' => 'slide',
-                    'feature_infor' => 'Video bài giảng chất lượng cao',
-                    'feature_infor_detail' => 'Bởi đội ngũ giáo viên xuất sắc và tận tâm, tốt nghiệp tại các trường Đại học danh tiếng'
-                ],
-                [
-                    'pathImg' => 'check_note',
-                    'feature_infor' => 'Đầy đủ bài mẫu, bài tập, mini test, progress test như thi thật',
-                    'feature_infor_detail' => 'Bộ tài liệu đã giúp nhiều bạn vượt qua kỳ thi JLPT'
-                ],
-                [
-                    'pathImg' => 'copy',
-                    'feature_infor' => 'Bài 聴解 được cực kỳ chất lượng',
-                    'feature_infor_detail' => 'Giáo viên chấm bài chính xác từng chữ với Writing, từng giây với Speaking, kết hợp bài kiểm tra phát âm bằng AI'
-                ],
-                [
-                    'pathImg' => 'check_note',
-                    'feature_infor' => 'Đầy đủ bài mẫu, bài tập, mini test, progress test như thi thật',
-                    'feature_infor_detail' => 'Bộ tài liệu đã giúp nhiều bạn vượt qua kỳ thi JLPT'
-                ],
-            ],
-            'latest_products' => [
-                [
-                    'name_products' => 'Khóa học tiếng Nhật',
-                    'infor' => 'Học online qua video bài giảng, hệ thống bài test',
-                    'infor_detail' => 'Với lộ trình được cá nhân hóa và hệ thống bài giảng lên tới hàng nghìn video/bài test, khóa học cam kết cung cấp đầy đủ kiến thức theo từng level khác nhau.',
-                    'list_tab' => [
-                        [
-                            'courses' => 'Nền tảng JLPT',
-                            'courses_list' => ['N1', 'N2', 'N3', 'N4', 'N5']
-                        ],
-                        [
-                            'courses' => 'Luyện đề JLPT',
-                            'courses_list' => ['N1', 'N2', 'N3', 'N4']
-                        ],
-                        [
-                            'courses' => 'Kaiwa',
-                            'courses_list' => ['Sơ cấp', 'Trung cấp']
-                        ],
+            'partner' => [
+                'title' => 'Đối tác của chúng tôi',
+                'detail_partner' => [
+                    [
+                        'name' => 'Dungmorri',
+                        'website' => 'https://dungmori.com/',
+                        'path_logo' => asset('img/dungmorri.png')
                     ],
-                    'thumbnail' => 'courses1'
-                ],
-                [
-                    'name_products' => 'Thư viện tài liệu',
-                    'infor' => 'Tổng hợp một cách có chọn lọc từ các nguồn đề uy tín',
-                    'infor_detail' => 'Với lộ trình được cá nhân hóa và hệ thống đề thi đa dạng, khóa học cam kết cung cấp đầy đủ kiến thức theo từng level khác nhau.',
-                    'list_tab' => [
-                        [
-                            'courses' => 'Đề thi JLPT các năm',
-                            'courses_list' => ['N1', 'N2', 'N3', 'N4', 'N5']
-                        ],
-                        [
-                            'courses' => 'Đề thi thử sưu tầm',
-                            'courses_list' => ['N1', 'N2', 'N3', 'N4']
-                        ],
+                    [
+                        'name' => 'Riki',
+                        'website' => 'https://riki.edu.vn/',
+                        'path_logo' => asset('img/riki.png')
                     ],
-                    'thumbnail' => 'courses1'
-                ],
+                    [
+                        'name' => 'Gitlab',
+                        'website' => 'https://about.gitlab.com/',
+                        'path_logo' => asset('img/gitlab.png')
+                    ],
+                    [
+                        'name' => 'Dungmorri',
+                        'website' => 'https://dungmori.com/',
+                        'path_logo' => asset('img/dungmorri.png')
+                    ],
+                    [
+                        'name' => 'Riki',
+                        'website' => 'https://riki.edu.vn/',
+                        'path_logo' => asset('img/riki.png')
+                    ],
+                    [
+                        'name' => 'Gitlab',
+                        'website' => 'https://about.gitlab.com/',
+                        'path_logo' => asset('img/gitlab.png')
+                    ]
+                ]
             ],
+            'popular_courses' => [
+                'title' => 'Khóa học phổ biến',
+                
+            ]
+            ,
+            'difference' => [
+                'thumbnail' => asset('img/difference.png'),
+                'title' => 'Sự khác biệt của chúng tôi',
+                'statistics' => [
+                    [
+                        'Fontawesomeicon' => 'faGraduationCap',
+                        'value' => '300',
+                        'name' => 'Instructor'
+                    ],
+                    [
+                        'Fontawesomeicon' => 'faPerson',
+                        'value' => '20,000+',
+                        'name' => 'Students'
+                    ],
+                    [
+                        'Fontawesomeicon' => 'faVideo',
+                        'value' => '1000+',
+                        'name' => 'Video'
+                    ],
+                ]
+            ],
+            'feedback' => [
+                'content' => 'Nội dung bài giảng là yếu tố quan trọng nhất đối với mình. Và đã khiến mình u mê đến mức lạc lối luôn. Qua trải nghiệm cá nhân, mình nhận ra rằng nền tảng là điều thiết yếu. Có thể mình đã được luyện rất nhiều vì học chuyên, nhưng mình chưa được học bài bản nên kĩ năng làm bài không thực sự chắc chắn. Thông qua nội dung học ở Prep, đặc biệt phần Reading và Writing, mình đã có tiến bộ rõ rệt trong tốc độ cũng như độ chính xác khi làm bài, Writing biết cách sắp xếp ý tứ, câu từ logic hơn hẳn, Reading biết cách skim và scan “chuyên nghiệp” hơn hồi học lỏm từ các bài post trên mạng. Còn phần Speaking thì được học bài bản như vậy với một số tiền phải nói là rẻ so với những trung tâm khác, khiến mình cảm thấy rất biết ơn Prep🥲, cứ như Prep cứu mình từ địa ngục nói ngọng líu ngọng lơ sang nói trôi chảy và có nhấn nhá ấy.'
+            ]
         ];
         return response()->json($data);
     }

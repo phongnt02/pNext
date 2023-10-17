@@ -1,11 +1,12 @@
 @import 'normalize.css';
 :root {
-    --primary-color:#2563eb;
+    --primary-color:#2C1F4A;
     --black-color:#000;
     --text-color:#6B7280;
     --text-black-color:#4a4a4a;
-    --sub-background-color : #f5f6fa;
+    --sub-background-color : #371D74;
     --font-family:'Inter',sans-serif;
+    --btn-color: #7F56DA;
 
     // size layout
     --default-layout-width : 1280px;
@@ -52,4 +53,14 @@ a {
     font-family: Inter;
     src: url('../../assets/font/Inter4.woff2');
     font-weight: 600;
+}
+
+.bg-primary {
+    background-color: #2C1F4A;
+}
+.bg-sub {
+    background-color: #2A2753;
+}
+.btn-color {
+    background-color: #7F56DA;	
 }

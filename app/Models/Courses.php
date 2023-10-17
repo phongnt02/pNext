@@ -9,11 +9,11 @@ class Courses extends Model
 {
     use HasFactory;
     protected $table = 'courses';
-    protected $guarded = ['id'];
+    protected $guarded = ['courses_id'];
 
     public function getListCourses()
     {
-        $this->select();
+        return $this->select();
     }
 
     

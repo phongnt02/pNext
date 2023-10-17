@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './HeaderLearning.module.scss'
-import images from '../../assets/image'
+// import images from '../../assets/image'
 import Manager from '../../components/Manager';
 
 const cx = classNames.bind(styles)
