@@ -1,0 +1,33 @@
+.owner-watch {
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
+    max-height: 50px;
+    .owner-avatar img {
+        max-width: 50px;
+        max-height: 50px;
+        object-fit: contain;
+    }
+
+    .owner-infor {
+        margin-left: 8px;
+        max-height: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        
+        .user-name {
+            font-size: 16px;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .created-at {
+            font-size: 12px;
+            height: 25px;
+            line-height: 25px;
+            color: rgb(156 163 175 / 1);
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import VerificationLayout from "../../layouts/components/VerificationLayout";
+import VerificationLayout from "../../layouts/VerificationLayout";
 
 
 const loginForm = {

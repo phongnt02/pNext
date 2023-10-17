@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('Social', function (Blueprint $table) {
+            $table->id('social_id');
+            $table->enum('provider', ['facebook', 'google']);
+            $table->unsignedBigInteger('provider_user_id');
+            $table->string('access_token');
+            $table->string('refresh_token');
+            $table->unsignedBigInteger('user_id');
+        });
     }
 
     /**

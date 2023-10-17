@@ -1,5 +1,135 @@
-.title {
-    color: var(--text-black-color);
-    font-size: 24px;
-    margin: 18px 0;
+.content {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 20px;
+
+    &:hover .controls {
+        transform: translateY(0);
+    }
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    width: 100%;
+    height: 60px;
+    padding: 0 30px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: auto;
+    transform: translateY(100%);
+    transition: all 0.5s;
+
+    .btn {
+        padding: 0 18px;
+    }
+
+    .duration {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+    }
+}
+
+.speeds-tippy {
+    width: 120px;
+    min-height: 80px;
+    background-color: rgba(56, 56, 56, 0.5);
+    border-radius: 10px;
+
+    .speed-current {
+        color: #fff;
+        padding: 8px;
+        border-bottom: 1px solid #fff;
+        font-size: 14px;
+    }
+
+    .speeds-popper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        margin: 8px 0;
+
+        .speed-item {
+            width: 100%;
+            padding: 8px 12px;
+            text-align: left;
+            color: #fff;
+            font-size: 14px;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+        }
+    }
+}
+
+.mutes {
+    position: relative;
+    padding-right: 10px;
+
+    .volume {
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 2px;
+        background-color: transparent;
+        transition: all 0.5s;
+
+        -webkit-appearance: none; 
+        appearance: none; 
+        border: none;
+        cursor: pointer;
+    }
+
+    &:hover .volume {
+        width: 100px;
+        background-color: #fff;
+    }
+
+    
+    // Chrome, Safari
+    .volume::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px; 
+        height: 14px; 
+        border-radius: 20px;
+        background: transparent;
+        cursor: pointer;
+    }
+    &:hover .volume::-webkit-slider-thumb {
+        background: #fff;
+    }
+    
+    // Firefox
+    .volume::-moz-range-thumb {
+        width: 14px;
+        height: 14px; 
+        border-radius: 20px;
+        background: transparent;
+        cursor: pointer;
+    }
+    &:hover .volume::-moz-range-thumb {
+        background: #fff;
+    }
+}
+
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%)
 }
