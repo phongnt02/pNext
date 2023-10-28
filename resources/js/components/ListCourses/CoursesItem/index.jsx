@@ -8,22 +8,22 @@ const cx = classNames.bind(styles)
 
 function CoursesItem({courses}) {
     return (
-        <Link to={`/courses/learning/${courses.course_id}`} className={cx('common-item')}>
+        <Link to={`/courses/learning/${courses.id_courses}`} className={cx('common-item')}>
             <div className={cx('thumbnail_course')}>
-                <img src={courses.course_thumbnail} alt="error"></img>
+                <img src={courses.thumbnail} alt="error"></img>
                 <div className={cx('join-course')}>
                     <Button classic>Xem khóa học</Button>
                 </div>
             </div>
-            <h4 className={cx('name_courses')}>{courses.course_name}</h4>
+            <h4 className={cx('name_courses')}>{courses.name_courses}</h4>
             <div className={cx('infor')}>
                 <div className={cx('count_member')}>
                     <FontAwesomeIcon icon={faPeopleGroup}></FontAwesomeIcon>
-                    <span className={cx('value')}>{courses.count_member}</span>
+                    <span className={cx('value')}>{courses.enrollmentCount}</span>
                 </div>
                 <div className={cx('cost_courses')}>
                     <FontAwesomeIcon icon={faMoneyBill}></FontAwesomeIcon>
-                    <span className={cx('value','cost')}>{courses.course_cost}</span>
+                    <span className={cx('value','cost')}>{courses.price}</span>
                 </div>
             </div>
         </Link>

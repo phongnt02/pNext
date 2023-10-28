@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('thumbnail');
             $table->string('status');
             $table->integer('enrollmentCount');
-            $table->float('prince');
+            $table->decimal('price', 20, 2);
+            $table->string('category');
+            $table->string('level');
             $table->timestamp('startDate')->nullable();
             $table->timestamp('endDate')->nullable();
             $table->timestamps(); 

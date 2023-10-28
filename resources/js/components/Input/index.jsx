@@ -1,26 +1,19 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
-import useDebounce from '../../hooks/useDebounce'
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faEye, faEyeSlash, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import style from './Input.module.scss';
-import { setListInput } from '../../ReduxToolkit/formSlice'
-import request from "../../apiService/axiosConfig";
 import Button from '../Button'
 
 
 const cx = classNames.bind(style)
 
-const Input = React.forwardRef(({type, placeholder, filed, onSearch, onSubcribe, className}, ref) => {
+const Input = React.forwardRef(({type, placeholder, onDataInput, onSubcribe, className}, ref) => {
     const [Type,setType] = useState(type)
     const [showPass,setShowPass] = useState(false)
     const [isEmail,setIsEmail] = useState(true)
     const [inputValue,setInputValue] = useState('')
-    const debounceInput = useDebounce(inputValue,500)
-    const dispatch = useDispatch()
 
 
     useEffect(()=>{
@@ -38,33 +31,11 @@ const Input = React.forwardRef(({type, placeholder, filed, onSearch, onSubcribe,
         }
     },[showPass])
 
-    useEffect(()=>{
-        if(type == 'search') {
-            const data = {
-                keyword:inputValue
-            }
-            request.post('courses/search',data ,{
-                headers : {
-                    'Authorization':`Bearer ${Cookies.get('Token_login')}`,
-                }
-            })
-                .then(responce => {
-                    onSearch(responce.data)
-                })
-        }
-        else {
-            const data = setListInput({
-                'key':filed,
-                'value':inputValue
-            })
-            dispatch(data)
-        }
-    },[debounceInput])
-
     const handleChangeInput = (e) => {
         const value = e.target.value
         if(!value.startsWith(' ')) {
             setInputValue(value)
+            onDataInput(value)  
         }
     }
 
