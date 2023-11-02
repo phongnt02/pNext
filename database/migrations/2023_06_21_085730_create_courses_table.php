@@ -12,17 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id('id_courses');
+            $table->id('courses_id');
             $table->string('name_courses');
             $table->string('description');
             $table->string('thumbnail');
             $table->string('status');
-            $table->integer('enrollmentCount');
+            $table->string('list_author');
+            $table->integer('enrollment_count');
             $table->decimal('price', 20, 2);
             $table->string('category');
             $table->string('level');
-            $table->timestamp('startDate')->nullable();
-            $table->timestamp('endDate')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->timestamps(); 
         });
     }

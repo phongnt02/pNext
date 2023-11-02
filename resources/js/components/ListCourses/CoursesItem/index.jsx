@@ -8,7 +8,7 @@ const cx = classNames.bind(styles)
 
 function CoursesItem({courses}) {
     return (
-        <Link to={`/courses/learning/${courses.id_courses}`} className={cx('common-item')}>
+        <Link to={`/courses/${courses.courses_id}`} className={cx('common-item')}>
             <div className={cx('thumbnail_course')}>
                 <img src={courses.thumbnail} alt="error"></img>
                 <div className={cx('join-course')}>

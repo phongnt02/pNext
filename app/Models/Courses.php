@@ -10,7 +10,7 @@ class Courses extends Model
     use HasFactory;
     protected $table = 'courses';
     protected $fillable = [
-        'id_courses',
+        'courses_id',
         'name_courses',
         'description',
         'thumbnail',
@@ -23,22 +23,29 @@ class Courses extends Model
         'created_at',
         'updated_at'
     ];
-    protected $primaryKey = 'id_courses';
+    protected $primaryKey = 'courses_id';
     public $incrementing = true;
 
-    public function getListCourses()
+    public function getListCourses($courses_id = null)
     {
-        return $this->select()->get();
+        $courses = $this->select();
+        if (!is_null($courses_id)) {
+            $courses->where('courses_id', '=', $courses_id);
+        }
+
+        return $courses->get();
     }
 
-    public function getListCoursesByName ($name) {
+    public function getListCoursesByName($name)
+    {
         return $this->select()->where('name_courses', 'like', "%{$name}%")->get();
     }
 
-    public function getListCoursesSelect ($level, $category) {
+    public function getListCoursesSelect($level, $category)
+    {
         return $this->select()->where([
             ['level', '=', $level],
-            ['category', '=' , $category]
+            ['category', '=', $category]
         ])->get();
     }
 }

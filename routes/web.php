@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ManageCoursesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,12 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+include "auth.php";
+Route::group(['name' => 'admin', 'prefix' => 'admin'], function () {
 
-Route::group(['name' => 'api', 'prefix' => 'api'], function () {
-    include "auth.php";
-    include "home.php";
-    include "courses.php";
+    Route::group(['name' => 'dashboard'], function () {
+        Route::any('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    
+    });
+    
+    Route::group(['name' => 'courses', 'prefix' => 'courses'], function () {
+        Route::any('/', [ManageCoursesController::class, 'index'])->name('courses.index');
+        Route::any('/add', [ManageCoursesController::class, 'add'])->name('courses.add');
+        Route::any('/storage', [ManageCoursesController::class, 'store'])->name('courses.storage');
+    });
+
 });
+
 
 // route này luôn được đặt ở cuối file
 Route::any('{path}', function () {

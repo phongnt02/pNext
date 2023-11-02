@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'courses' => [
+            'driver' => 'local',
+            'root' => env('COURSES_STORAGE'),
+            'throw' => false
+        ]
+
     ],
 
     /*

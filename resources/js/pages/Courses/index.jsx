@@ -21,6 +21,7 @@ function Courses() {
             courses.getListCourses()
                 .then(response => {
                     setListCourses(response.data);
+                    console.log(response.data);
                     setIsLoading(false)
                 })
         }
@@ -36,11 +37,17 @@ function Courses() {
 
     const handleSearchCourses = (data) => {
         setIsLoading(true)
-        courses.search(data)
+        let searchDelay;
+        if (searchDelay) {
+            clearTimeout(searchDelay);
+        }
+        searchDelay = setTimeout(() => {
+            courses.search(data)
             .then(response => {
                 setListCourses(response.data)
                 setIsLoading(false)
             })
+        }, 500);
     }
 
     const htmlRender = (
