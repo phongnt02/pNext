@@ -17,6 +17,13 @@ const courses = {
             categogy
         })
         return response.data
+    },
+
+    async getDataLearnDefault (courses_id){
+        let response = await request.post('/courses/getDataLearnDefault', {
+            courses_id
+        })
+        return response.data
     }
 }
 

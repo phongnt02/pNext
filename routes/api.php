@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['name' => 'home'], function () {
+    Route::any('/home', [HomeController::class, 'getDataDefault'])->name('home.getDataDefault');
+});
+
+Route::group(['name'=>'courses', 'prefix' => 'courses'], function () {
+    Route::any('/', 'CoursesController@getListCourses')->name('courses.getListCourses');
+    Route::post('/search', 'CoursesController@search')->name('courses.search');
+    Route::post('/searchSelect', 'CoursesController@searchSelect')->name('courses.searchSelect');
+    Route::post('/getDataLearnDefault', 'CoursesController@getDataLearnDefault')->name('courses.getDataLearnDefault');
+
 });

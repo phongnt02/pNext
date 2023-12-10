@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Social_Account', function (Blueprint $table) {
+        Schema::create('Social', function (Blueprint $table) {
             $table->id('social_id');
             $table->enum('provider', ['facebook', 'google']);
             $table->unsignedBigInteger('provider_user_id');

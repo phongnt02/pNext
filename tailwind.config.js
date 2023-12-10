@@ -4,6 +4,7 @@ export default {
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.jsx",
+    "./app/Helpers/ListBag/resources/**/*.blade.php",
   ],
   theme: {
     extend: {},

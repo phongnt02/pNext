@@ -20,7 +20,7 @@ function ListCourses({ level, data, isLoading }) {
                 ) : (
                     <div className={cx('list-courses')}>
                         {Array.isArray(data) && data.length > 0 && data.map((item) => (
-                            <CoursesItem key={item.id_courses} courses={item}></CoursesItem>
+                            <CoursesItem key={item.courses_id} courses={item}></CoursesItem>
                         ))}
                     </div>
                 )
