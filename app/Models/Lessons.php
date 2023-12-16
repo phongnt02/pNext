@@ -10,7 +10,7 @@ class Lessons extends Model
     use HasFactory;
     protected $table = 'lessons';
     protected $fillable = [
-        'lesson_id',
+        'lessons_id',
         'title_lesson',
         'author',
         'description',
@@ -19,11 +19,20 @@ class Lessons extends Model
         'document_path',
         'duration_lesson',
         'score',
-        'id_chapters',
+        'chapters_id',
         'created_at',
         'updated_at',
     ];
-    protected $primaryKey = 'lesson_id';
+    protected $primaryKey = 'lessons_id';
     public $incrementing = true;
+    public $timestamps = true;
 
+    public function getListLessons ($lesson_id = null) {
+        $lesson = $this->select();
+        if (!is_null($lesson_id)) {
+            $lesson->where('lessons_id', '=', $lesson_id);
+        }
+
+        return $lesson->get();
+    }
 }

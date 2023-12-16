@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 
 class Courses extends Model
 {
@@ -15,16 +18,20 @@ class Courses extends Model
         'description',
         'thumbnail',
         'status',
-        'enrollmentCount',
+        'list_author',
+        'enrollment_count',
         'price',
-        'labelCourses',
-        'startDate',
-        'endDate',
+        'category',
+        'level',
+        'name_folder_store',
+        'start_date',
+        'end_date',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
     protected $primaryKey = 'courses_id';
     public $incrementing = true;
+    public $timestamps = true;
 
     public function getListCourses($courses_id = null)
     {

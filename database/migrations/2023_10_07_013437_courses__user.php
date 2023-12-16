@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('user_id');
             $table->unsignedBigInteger('courses_id');
             $table->integer('progress');
+            $table->unsignedBigInteger('current_lessons_id');
             $table->time('registration_date');
             $table->timestamps();
         });

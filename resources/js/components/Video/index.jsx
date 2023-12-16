@@ -1,15 +1,17 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, memo, useEffect } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { faBackwardStep, faCompress, faExpand, faForwardStep, faGaugeSimple, faGear, faPlay, faRotateBack, faRotateForward, faStop, faVolumeHigh, faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import styles from './Video.module.scss';
 import PopperHeadless from "../Popper/PopperHeadless";
+import Loading from "../Loading";
 
 const cx = classNames.bind(styles)
 
-function Video(data) {
+function Video({dataVideo}) {
     const video = useRef(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [isPlay, setIsPlay] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [isMutes, setIsMutes] = useState(false);
@@ -18,6 +20,25 @@ function Video(data) {
     const [isFullScreen, setIsFullScreen] = useState(false);
     const handleFullScreen = useFullScreenHandle();
 
+    useEffect(() => {
+        const videoElement = video.current;
+
+        const handleDataLoaded = () => {
+            setIsLoading(false);
+            setCurrentTime(0);
+            setIsPlay(false);
+        };
+
+        if (videoElement) {
+            videoElement.addEventListener('loadeddata', handleDataLoaded);
+            setIsLoading(true);
+            return () => {
+                videoElement.removeEventListener('loadeddata', handleDataLoaded);
+            };
+        }
+    }, [dataVideo]);
+
+    // defind list btn for controls
     const handlePlay = () => {
         if (video.current.paused) {
             video.current.play();
@@ -29,7 +50,8 @@ function Video(data) {
     }
 
     const handleChange = (e) => {
-        const value = e.target.value
+        let value = e.target.value
+        value = isNaN(value) ? '' : String(value);
         setCurrentTime(value)
         video.current.currentTime = (video.current.duration * value) / 100
     }
@@ -71,7 +93,7 @@ function Video(data) {
         video.current.playbackRate = speed;
         setCurrentSpeed(speed)
     };
-
+    // config full screen
     const reportChange = useCallback((state, handle) => {
         if (handle === handleFullScreen) {
             setIsFullScreen(state);
@@ -92,14 +114,18 @@ function Video(data) {
             </div>
         </>
     );
-
     return (
         <div className={cx('content')}>
             <FullScreen handle={handleFullScreen} onChange={reportChange}>
-                <video ref={video} className={cx('video')} src={data.data.path}
+                <video ref={video} className={cx('video')} src={dataVideo.path_video}
                     onClick={handlePlay}
                     onTimeUpdate={handleTimeUpdate}
                 ></video>
+                {isLoading && (
+                    <div className={cx('loading')}>
+                        <Loading></Loading>
+                    </div>
+                )}
                 <div className={cx('controls')}>
                     <input name="progress" type="range" min="1" max="100"
                         className={cx('duration')}
@@ -154,4 +180,4 @@ function Video(data) {
     );
 }
 
-export default Video;
+export default memo(Video);

@@ -56,10 +56,12 @@ return [
             'throw' => false,
         ],
 
-        'courses' => [
+        'store_server' => [
             'driver' => 'local',
             'root' => env('COURSES_STORAGE'),
-            'throw' => false
+            'throw' => false,
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
         ]
 
     ],

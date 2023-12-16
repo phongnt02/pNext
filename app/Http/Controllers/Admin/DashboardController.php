@@ -10,6 +10,7 @@ class DashboardController extends Controller
     public function index () {
         return view('admin.dashboard.index',[
             'page_title' => 'System Manage',
+            'breadcrumbs' => 'dashboard.index',
         ]);
     }
 

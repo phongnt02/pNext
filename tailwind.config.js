@@ -5,10 +5,13 @@ export default {
     "./resources/**/*.js",
     "./resources/**/*.jsx",
     "./app/Helpers/ListBag/resources/**/*.blade.php",
+    "./node_modules/@themesberg/flowbite/**/*.js"
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@themesberg/flowbite/plugin')
+  ],
 }
 

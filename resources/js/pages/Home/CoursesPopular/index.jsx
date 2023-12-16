@@ -11,7 +11,7 @@ function CoursesPopular() {
     return (
         <>
             <div className="flex justify-between items-center h-20 ">
-                <h3 className="text-white text-4xl ">Popular <span className="text-indigo-400">Courses</span></h3>
+                <h3 className="text-black text-4xl ">Popular <span className="text-blue-500">Courses</span></h3>
                 <div className="h-20">
                     <ul className={cx('tab')}>
                         <li className={cx('item')}>

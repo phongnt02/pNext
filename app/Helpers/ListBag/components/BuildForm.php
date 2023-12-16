@@ -7,9 +7,11 @@ use Illuminate\View\Component;
 class BuildForm extends Component
 {
     public $config;
-    public function __construct($listField = '')
+    public $dataForm;
+    public function __construct($listField = '', $data = null)
     {
         $this->config = require(app_path('Helpers/ListBag/resources/config/' . "{$listField}.php"));
+        $this->dataForm = $data;
     }
 
     public function render()

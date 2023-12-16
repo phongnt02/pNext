@@ -19,7 +19,7 @@ function CoursesItem({courses}) {
             <div className={cx('infor')}>
                 <div className={cx('count_member')}>
                     <FontAwesomeIcon icon={faPeopleGroup}></FontAwesomeIcon>
-                    <span className={cx('value')}>{courses.enrollmentCount}</span>
+                    <span className={cx('value')}>{courses.enrollment_count}</span>
                 </div>
                 <div className={cx('cost_courses')}>
                     <FontAwesomeIcon icon={faMoneyBill}></FontAwesomeIcon>

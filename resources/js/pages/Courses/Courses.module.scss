@@ -1,6 +1,7 @@
 .wrapper {
     --background-courses-color:#F9FAFB;
-    background: var(--primary-color);
+    background: #1e1357;
+    padding: 0 110px;
 }
 .barner {
     height: 250px;
@@ -46,14 +47,14 @@
     cursor: pointer;
     width: 100%;
     &.active {
-        color: var(--primary-color);
+        color: var(--text-black-color);
     }
 }
 
 // courses manager
 .courses-manager {
     background-color: var(--background-courses-color);
-    min-height: 500px;
+    min-height: 100vh;
     border-top-right-radius: 60px;
     border-top-left-radius: 60px;
     padding: 0 50px;

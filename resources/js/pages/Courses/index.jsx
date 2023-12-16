@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
@@ -10,24 +10,23 @@ import courses from "../../apiService/coursesService";
 
 const cx = classNames.bind(styles)
 function Courses() {
-    const [selectExam, setSelectExam] = useState('JLPT')
+    const [selectExam, setSelectExam] = useState('Tất cả')
     const [selectLevel, setSelectLevel] = useState('Tất cả')
     const [listcourses, setListCourses] = useState([])
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (selectLevel == 'Tất cả') {
+        if (selectLevel == 'Tất cả' && selectExam == 'Tất cả') {
             setIsLoading(true)
             courses.getListCourses()
                 .then(response => {
                     setListCourses(response.data);
-                    console.log(response.data);
                     setIsLoading(false)
                 })
         }
         else {
             setIsLoading(true)
-            courses.searchSelect(selectLevel, selectExam)
+            courses.searchSelect(selectLevel != 'Tất cả' ? selectLevel : false, selectExam != 'Tất cả' ? selectExam : false)
                 .then(response => {
                     setListCourses(response.data);
                     setIsLoading(false)
@@ -50,21 +49,22 @@ function Courses() {
         }, 500);
     }
 
-    const htmlRender = (
+    const htmlRender = useMemo(() => (
         <div className={cx('menu-select-courses')}>
+            <div className={cx('menu-select-courses-item', { active: selectExam == 'Tất cả' })} onClick={() => setSelectExam('Tất cả')}>Tất cả</div>
             <div className={cx('menu-select-courses-item', { active: selectExam == 'JLPT' })} onClick={() => setSelectExam('JLPT')}>JLPT</div>
             <div className={cx('menu-select-courses-item', { active: selectExam == 'Kaiwa' })} onClick={() => setSelectExam('Kaiwa')}>Kaiwa</div>
         </div>
-    )
+    ), [selectExam])
 
     const levelItems = ['Tất cả', 'N1', 'N2', 'N3', 'N4', 'N5'];
-    const htmlRenderLevel = (
+    const htmlRenderLevel = useMemo(() => (
         <div className={cx('menu-select-level')}>
             {levelItems.map((level, index) => (
                 <div key={index} className={cx('menu-select-level-item', { active: selectLevel == level })} onClick={() => setSelectLevel(level)}>{level}</div>
             ))}
         </div>
-    )
+    ), [levelItems])
 
     return (
         <div className={cx('wrapper')}>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Courses;
 use App\Models\Chapters;
 use App\Models\Lessons;
@@ -52,14 +53,24 @@ class CoursesController extends Controller
                             ->get();
     
         foreach ($listChapters as $chapter) {
-            $lesson = $this->lessons
+            $lessons = $this->lessons
                             ->select()
                             ->where('chapters_id', $chapter->chapters_id)
                             ->get();
+                            
+            foreach ($lessons as $lesson ) {
+                if (!empty($lesson['path_video'])) {
+                    $params = explode('/', $lesson['path_video']);
+                    $lesson['path_video'] = route('resource.show', [
+                        'name_folder_store' => $params[0],
+                        'file_name' => $params[1],
+                    ]);
+                }
+            }
 
             array_push($data, [
                 'chapter'=> $chapter,
-                'lesson' => $lesson
+                'lesson' => $lessons
             ]);
         }
         
@@ -67,12 +78,6 @@ class CoursesController extends Controller
         return response()->json([
             'courses' => $this->courses->getListCourses($idCourses)->first(),
             'dataTabList' => $data,
-            'currentVideo' => [
-                'path' => asset('video/test.mp4'),
-                'name_lesson' => 'Chữa đề N3',
-                'nextVideo' => '',
-                'prevVideo' => ''
-            ],
         ]);
     }
 }

@@ -20,7 +20,6 @@ function Home() {
                 setData(response)
             })
     }, [])
-    console.log(data);
 
     const getIconFromString = (iconName) => {
         switch (iconName) {
@@ -36,11 +35,11 @@ function Home() {
     }
 
     return (
-        <div className="w-full h-auto bg-primary px-32">
+        <div className="w-full xl:max-w-screen-xl h-auto bg-primary px-32 2xl:px-2">
             <div className="flex h-auto py-8">
                 <div className="h-full w-full">
-                    <h3 className="text-white text-6xl ont-mono py-4 w-full">{data.introduce?.title}</h3>
-                    <span className="text-gray-400">
+                    <h3 className="text-black text-5xl ont-mono py-4 w-full">{data.introduce?.title}</h3>
+                    <span className="text-gray-900">
                         {data.introduce?.provider}
                     </span>
                     <SearchHome />
@@ -63,10 +62,10 @@ function Home() {
                     <img className={cx('difference_img')} alt="difference" src={data.difference?.thumbnail}></img>
                 </div>
                 <div className="h-full w-1/2">
-                    <h3 className="text-white text-4xl ont-mono py-12 w-full">{data.difference?.title}</h3>
+                    <h3 className="text-black text-4xl ont-mono py-12 w-full">{data.difference?.title}</h3>
                     <div className={cx('statistics')}>
                         {data.difference?.statistics.map((item, index) => (
-                            <div key={index} className="flex justify-center items-center text-white">
+                            <div key={index} className="flex justify-center items-center text-black">
                                 <span className="text-5xl"><FontAwesomeIcon icon={getIconFromString(item.Fontawesomeicon)}></FontAwesomeIcon></span>
                                 <span className="pl-6">
                                     <div className="text-3xl">{item.value}</div>
@@ -79,7 +78,7 @@ function Home() {
             </div>
 
             <div className="w-full h-auto py-16 flex justify-center flex-col items-center">
-                <h3 className="text-white text-4xl ont-mono py-24 w-full text-center">Feedback</h3>
+                <h3 className="text-black text-4xl ont-mono py-24 w-full text-center">Feedback</h3>
                 <div className={cx('feedback')}>
                     <div className="my-4">
                         <OwnerViews userName="phongnt" createdAt="2 tháng trước"/>

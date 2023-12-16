@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
 class ListBag {
-    private $config;
+    public $config;
     public $ResultSearch;
-    public $column = [];
-    public $SearchTransform;
+    public $columnQuery = [];
+    public $SearchTransform = [];
 
     public function __construct($config = '')
     {
@@ -21,30 +21,46 @@ class ListBag {
         return isset( $fields['search']) ?  $fields['search'] : null;
     }
 
-    public function getResultSearch ($search = '') {
-        $listField = [];
+    public function index ($search, $id = null) {
+        // $this->pushInSearchTransform($search);
+        $this->getResultSearch($search, $id);
+    }
+
+    public function getResultSearch ($search, $id) {
+
         foreach ($this->config as $key => $value) {
+            if (isset($value['inner'])){
+                continue;
+            }
             $table = $this->getTableName($key);
-            if($table){
+            if($table && !isset($value['join'])){
                 $query = DB::table($table);
+                $mainTable = $table;
             }
 
-            (isset($value['condition']) && $value['condition']) ? $query->where($key, 'LIKE', "%{$search}%") : $query;
+            if(isset($value['join'])) {
+                $query->join($value['join']['table'], $value['join']['on'][0],$value['join']['on'][1]);
+            }
+
+            if ((isset($value['condition']) && $value['condition'] == 'LIKE')) {
+                $query->where($key, 'LIKE', "%{$search}%");
+            }
+
+            if ((isset($value['condition']) && $value['condition'] == 'WHERE')) {
+                $query->where($key, $id);
+            }
 
             (isset($value['orderBy']) && $value['orderBy']) ? $query->orderBy($key) : $query;
+
                 
             if(isset($value['show']) && $value['show']) {
-                array_push($listField, $key);
-                $this->column[] = [
-                    'name' => $key,
-                    'label' => $value['label']
-                ] ;
+                $this->columnQuery[] = (strpos($key, '.') !== false) ? $key : $mainTable . '.' . $key;
             }            
         }
-        $query->select($listField);
+        $query->select($this->columnQuery);
         $this->ResultSearch = $query->get();
-
         $this->SearchTransform = $search;
+
     }
     
     public function getTableName ($string) {
@@ -55,5 +71,9 @@ class ListBag {
         }
         return null;
     }
+
+    // public function pushInSearchTransform ($search) {
+    //     $this->SearchTransform[] = $search;
+    // }
 
 }

@@ -1,8 +1,8 @@
 @import 'normalize.css';
 :root {
-    --primary-color:#0C0928;
-    --sub-background-color : #41355D;
-    --btn-color: #7F56DA;
+    --primary-color: #fff;
+    --sub-background-color : #F4F4F4;
+    --btn-color: #2563eb;
     --black-color:#000;
     --text-color:#6B7280;
     --text-black-color:#4a4a4a;
@@ -59,8 +59,8 @@ a {
     background-color: var(--primary-color);
 }
 .bg-sub {
-    background-color: #2A2753;
+    background-color: var(--sub-background-color);
 }
 .btn-color {
-    background-color: #7F56DA;	
+    background-color: var(--btn-color);	
 }
