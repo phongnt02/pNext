@@ -1,87 +1,77 @@
+import 'flowbite';
 import React from "react";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faEye, faEyeSlash, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import style from './Input.module.scss';
-import Button from '../Button'
 
 
 const cx = classNames.bind(style)
 
-const Input = React.forwardRef(({type, placeholder, onDataInput, onSubcribe, className}, ref) => {
-    const [Type,setType] = useState(type)
-    const [showPass,setShowPass] = useState(false)
-    const [isEmail,setIsEmail] = useState(true)
-    const [inputValue,setInputValue] = useState('')
+const Input = React.forwardRef(({ type, label, placeholder, onDataInput, className, name }, ref) => {
+    const [Type, setType] = useState(type)
+    const [showPass, setShowPass] = useState(false)
+    const [isEmail, setIsEmail] = useState(true)
+    const [inputValue, setInputValue] = useState('')
 
-
-    useEffect(()=>{
-        if(type == 'email' || type == 'search' || type == 'verify'){
-            setType('text')
+    useEffect(() => {
+        if (showPass && type === 'password') {
+            setType('text');
+        } else if (!showPass && type === 'password') {
+            setType('password');
+        } else if (['email', 'search', 'verify'].includes(type)) {
+            setType('text');
         }
-    },[])
-
-    useEffect(()=>{
-        if(showPass && type == 'password') {
-            setType('text')
-        }
-        else if(!showPass && type == 'password'){
-            setType('password')
-        }
-    },[showPass])
+    }, [type, showPass]);
 
     const handleChangeInput = (e) => {
         const value = e.target.value
-        if(!value.startsWith(' ')) {
+        if (!value.startsWith(' ')) {
             setInputValue(value)
-            onDataInput(value)  
+            onDataInput(value)
         }
     }
 
     const handleBlur = () => {
-        if(type == 'email' && inputValue.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        setIsEmail(false)
+        if (type == 'email' && inputValue.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
             setIsEmail(true)
         }
-        else {
-            setIsEmail(false)
-        }
     }
-
-    const handleReceivedNews = (email) => {
-        console.log(email);
-        setInputValue('')
+    
+    const renderViews = () => {
+        switch (type) {
+            case 'email':
+                return !isEmail && (
+                    <p class="mt-4 text-xl text-red-500 dark:text-red-500">Vui lòng nhập đúng định dạng email</p>
+                );
+            case 'search':
+                return;
+            case 'password':
+                return (
+                    <span className={cx('absolute top-1/2 right-6 cursor-pointer translate-y-2')} onClick={() => setShowPass(prev => !prev)}>
+                        {showPass && <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>}
+                        {!showPass && <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>}
+                    </span>
+                )
+            default:
+        }
     }
 
     return (
-        <div className={cx('input-parent')}>
+        <div className={cx('relative')}>
+            {type != 'search' && (<label className={cx('block mb-3 text-2xl font-bold text-gray-900 dark:text-white')} htmlFor={name}>{label}</label>)}
             <input type={Type} placeholder={placeholder} ref={ref}
-            className={cx('input',className , {'input-search' : type == 'search'})} 
-            onBlur={handleBlur}
-            value={inputValue} 
-            onChange={(e) => handleChangeInput(e)} />
-            {type != 'search' && <label className={cx('label')}>{placeholder}</label>}
-            {type == 'password' && (
-                <span className={cx('icon')} onClick={()=> setShowPass(prev => !prev)}>
-                    {showPass && <FontAwesomeIcon icon={faEye}></FontAwesomeIcon> }
-                    {!showPass && <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon> }
-                </span>
-            )}
-            {type == 'search' && (
-                <span className={cx('icon')}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
-                </span>
-            )}
-            {type == 'email' && !isEmail && (
-                <span className={cx('validation-email')}>
-                    Vui lòng nhập đúng định dạng email
-                </span>
-            )}
-            {onSubcribe && (
-                <>
-                    <Button onClick={() => handleReceivedNews(inputValue)} className={cx('received')} primary small><FontAwesomeIcon icon={faEnvelope}/></Button>
-                </>
-            )}
+                id={name}
+                name={name}
+                value={inputValue}
+                className={cx({'text-xl w-full p-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' : type != 'search'}
+                , className
+                , { 'block w-[280px] h-16 p-3 ps-10 text-2xl text-gray-900 border border-gray-600 rounded-xl focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow': type == 'search' })}
+                onBlur={handleBlur}
+                onChange={(e) => handleChangeInput(e)} />
+            {renderViews()}
         </div>
     );
 })
