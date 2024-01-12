@@ -20,4 +20,12 @@ class ResourceController extends Controller
 
         abort(404);
     }
+
+    public function subtitleFile () {
+        $file = public_path('test/subtitle.vtt');
+        return response()->file($file, [
+            'Content-Type' => 'text/vtt',
+            'Access-Control-Allow-Origin' => '*',
+        ]);
+    }
 }

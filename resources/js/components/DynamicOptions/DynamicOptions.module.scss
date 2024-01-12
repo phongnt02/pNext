@@ -1,0 +1,33 @@
+.popper {
+    width: 120px;
+    min-height: 80px;
+    background-color: rgba(56, 56, 56, 0.5);
+    border-radius: 10px;
+
+    .speed-current {
+        color: #fff;
+        padding: 8px;
+        border-bottom: 1px solid #fff;
+        font-size: 14px;
+    }
+
+    .popper-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        margin: 4px 0;
+
+        .popper-item {
+            width: 100%;
+            padding: 8px 12px;
+            text-align: left;
+            color: #fff;
+            font-size: 14px;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+        }
+    }
+}

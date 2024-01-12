@@ -65,6 +65,8 @@ class CoursesController extends Controller
                         'name_folder_store' => $params[0],
                         'file_name' => $params[1],
                     ]);
+
+                    $lesson['path_subtitle'] = route('resource.subtitle');
                 }
             }
 
@@ -78,6 +80,12 @@ class CoursesController extends Controller
         return response()->json([
             'courses' => $this->courses->getListCourses($idCourses)->first(),
             'dataTabList' => $data,
+        ]);
+    }
+
+    public function getSubtitle () {
+        return response()->json([
+            'vn' => ''
         ]);
     }
 }
