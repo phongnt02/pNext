@@ -63,6 +63,7 @@ Route::group(['name' => 'admin', 'prefix' => 'admin'], function () {
 
 Route::group(['name' => 'resource'], function () {
     Route::any('resource/{name_folder_store}/{file_name}', [ResourceController::class, 'show'])->name('resource.show');
+    Route::any('resource/subtitle', [ResourceController::class, 'subtitleFile'])->name('resource.subtitle');
 });
 
 

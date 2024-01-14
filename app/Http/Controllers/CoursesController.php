@@ -66,6 +66,30 @@ class CoursesController extends Controller
                         'file_name' => $params[1],
                     ]);
                 }
+                if (!empty($lesson['path_subtitle_en'])) {
+                    $lesson['path_subtitle_en'] = route('resource.subtitle', [
+                        'path_subtitle' => $lesson['path_subtitle_en']
+                    ]);
+                }
+                else {
+                    $lesson['path_subtitle_en'] = null;
+                }
+                if (!empty($lesson['path_subtitle_jp'])) {
+                    $lesson['path_subtitle_jp'] = route('resource.subtitle', [
+                        'path_subtitle' => $lesson['path_subtitle_jp']
+                    ]);
+                }
+                else {
+                    $lesson['path_subtitle_jp'] = null;
+                }
+                if (!empty($lesson['path_subtitle_vi'])) {
+                    $lesson['path_subtitle_vi'] = route('resource.subtitle', [
+                        'path_subtitle' => $lesson['path_subtitle_vi']
+                    ]);
+                }
+                else {
+                    $lesson['path_subtitle_vi'] = null;
+                }
             }
 
             array_push($data, [
@@ -78,6 +102,12 @@ class CoursesController extends Controller
         return response()->json([
             'courses' => $this->courses->getListCourses($idCourses)->first(),
             'dataTabList' => $data,
+        ]);
+    }
+
+    public function getSubtitle () {
+        return response()->json([
+            'vn' => ''
         ]);
     }
 }

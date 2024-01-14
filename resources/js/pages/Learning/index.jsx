@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell, faLeftLong, faPen } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 import courses from "../../apiService/coursesService";
 import Video from "../../components/Video";
 import TabList from "./TabList";
+import Tab from '../../components/Tab';
 import styles from './Learning.module.scss';
-import { faBell, faLeftLong, faPen } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles)
 
@@ -22,6 +23,11 @@ function Learning() {
                 setData(response)
             });
     }, [])
+
+    const tabs = [
+        { id: 'summary', label: 'Summary', renderContent: () => <div>Content for Summary</div> },
+        { id: 'transcript', label: 'Transcript', renderContent: () => <div>Content for Transcript</div> },
+    ];
 
     return (
         <div className="relative min-h-screen w-full bg-primary px-16 grid grid-cols-3 grid-rows-2 gap-20 mt-40">
@@ -48,6 +54,8 @@ function Learning() {
                         <h3 className={cx('title-lesson')}>{dataVideo.title_lesson}</h3>
                     </div>
                 </div>
+
+                <Tab tabData={tabs} />
             </div>
             {!Array.isArray(data) && (
                 <div className="col-span-1">

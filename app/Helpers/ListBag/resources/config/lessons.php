@@ -26,7 +26,7 @@ return [
             }
         ],
         'lessons_id' => [
-            'label'=> 'User ID',
+            'label'=> 'Lessons ID',
             'show' => true,
             'orderBy' => false, 
         ],
@@ -142,6 +142,17 @@ return [
         'score' => [
             'label'=> 'Điểm bài học',
             'type' => 'text',
+            'maxlength' => '50',
+            'require' => false,
+        ],
+        'subtitle' => [
+            'label'=> 'Tạo phụ đề tự động',
+            'type' => 'select',
+            'options' => [
+                false => 'Không',
+                true => 'Tạo tự động'
+            ],
+            'selected' => false,
             'maxlength' => '50',
             'require' => false,
         ],

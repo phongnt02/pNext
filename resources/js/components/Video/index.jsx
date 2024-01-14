@@ -1,15 +1,16 @@
 import { useRef, useState, useCallback, memo, useEffect } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { faBackwardStep, faCompress, faExpand, faForwardStep, faGaugeSimple, faGear, faPlay, faRotateBack, faRotateForward, faStop, faVolumeHigh, faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faBackwardStep, faClosedCaptioning, faCompress, faExpand, faForwardStep, faGaugeSimple, faGear, faPlay, faRotateBack, faRotateForward, faStop, faVolumeHigh, faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import styles from './Video.module.scss';
 import PopperHeadless from "../Popper/PopperHeadless";
 import Loading from "../Loading";
+import DynamicOptions from "../DynamicOptions";
 
 const cx = classNames.bind(styles)
 
-function Video({dataVideo}) {
+function Video({ dataVideo }) {
     const video = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isPlay, setIsPlay] = useState(false);
@@ -17,6 +18,7 @@ function Video({dataVideo}) {
     const [isMutes, setIsMutes] = useState(false);
     const [currentSpeed, setCurrentSpeed] = useState(1.0);
     const [currentVolume, setCurrentVolume] = useState(100);
+    const [isSubtite, setIsSubtite] = useState(true);
     const [isFullScreen, setIsFullScreen] = useState(false);
     const handleFullScreen = useFullScreenHandle();
 
@@ -93,6 +95,10 @@ function Video({dataVideo}) {
         video.current.playbackRate = speed;
         setCurrentSpeed(speed)
     };
+
+    const setSubtitle = () => {
+        setIsSubtite(prev => !prev)
+    }
     // config full screen
     const reportChange = useCallback((state, handle) => {
         if (handle === handleFullScreen) {
@@ -105,22 +111,66 @@ function Video({dataVideo}) {
     const SpeedOption = (
         <>
             <span className={cx('speed-current')}>Tốc độ phát hiện tại : {currentSpeed}</span>
-            <div className={cx('speeds-popper')}>
+            <div className={cx('popper-wrapper')}>
                 {speeds.map((speed) => (
-                    <span className={cx('speed-item')} key={speed} onClick={() => setSpeeds(speed)}>
+                    <span className={cx('popper-item')} key={speed} onClick={() => setSpeeds(speed)}>
                         {speed}
                     </span>
                 ))}
             </div>
         </>
     );
+
+    const listSetting = [
+        {
+            'id': 'subtitle',
+            'label': 'Phụ đề',
+            'children': [
+                {
+                    'id': 'en',
+                    'label': 'Tiếng Anh',
+                    'onClick' : () => {
+                        console.log('en');
+                    }
+                },
+                {
+                    'id': 'vn',
+                    'label': 'Tiếng Việt',
+                    'onClick' : () => {
+                        console.log('vn');
+                    }
+                }
+                ,
+                {
+                    'id': 'jp',
+                    'label': 'Tiếng Nhật',
+                    'onClick' : () => {
+                        console.log('jp');
+                    }
+                }
+            ]
+        },
+        {
+            'id': 'quality',
+            'label': 'Chất lượng'
+        }
+    ]
+
     return (
         <div className={cx('content')}>
             <FullScreen handle={handleFullScreen} onChange={reportChange}>
                 <video ref={video} className={cx('video')} src={dataVideo.path_video}
                     onClick={handlePlay}
                     onTimeUpdate={handleTimeUpdate}
-                ></video>
+                >
+                    {isSubtite && (
+                        <>
+                            <track src={dataVideo.path_subtitle_en } kind="subtitles" label="Tiếng Anh" default></track>
+                            <track src={dataVideo.path_subtitle_vi } kind="subtitles" label="Tiếng Việt"></track>
+                            <track src={dataVideo.path_subtitle_jp } kind="subtitles" label="Tiếng Nhật" ></track>
+                        </>
+                    )}
+                </video>
                 {isLoading && (
                     <div className={cx('loading')}>
                         <Loading></Loading>
@@ -129,7 +179,7 @@ function Video({dataVideo}) {
                 <div className={cx('controls')}>
                     <input name="progress" type="range" min="1" max="100"
                         className={cx('duration')}
-                        value={currentTime}
+                        value={`${currentTime}`}
                         onChange={handleChange}
                     ></input>
                     <div className="h-16 w-full flex justify-between items-center text-white">
@@ -149,7 +199,7 @@ function Video({dataVideo}) {
                                 <button className="w-6" onClick={(setMutes)}>
                                     {isMutes ? <FontAwesomeIcon icon={faVolumeXmark}></FontAwesomeIcon> : <FontAwesomeIcon icon={faVolumeHigh}></FontAwesomeIcon>}
                                 </button>
-                                <input type="range" min='1' max="100" 
+                                <input type="range" min='1' max="100"
                                     className={cx('volume')}
                                     value={currentVolume}
                                     onChange={setVolumn}
@@ -157,12 +207,19 @@ function Video({dataVideo}) {
                             </span>
                         </div>
                         <div className={cx('control-right')}>
+                            <button className={cx('btn')} onClick={setSubtitle}>
+                                <FontAwesomeIcon className={cx({ 'text-gray-500': isSubtite })} icon={faClosedCaptioning}></FontAwesomeIcon>
+                            </button>
                             <button className={cx('speeds', 'btn')}>
-                                <PopperHeadless htmlRender={SpeedOption} className={cx('speeds-tippy')}>
+                                <PopperHeadless htmlRender={SpeedOption} className={cx('popper')}>
                                     <FontAwesomeIcon icon={faGaugeSimple}></FontAwesomeIcon>
                                 </PopperHeadless>
                             </button>
-                            <button className={cx('settings', 'btn')}><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></button>
+                            <button className={cx('settings', 'btn')}>
+                                <DynamicOptions data={listSetting} >
+                                    <FontAwesomeIcon icon={faGear}></FontAwesomeIcon>
+                                </DynamicOptions>
+                            </button>
                             {isFullScreen ? (
                                 <button className={cx('full-screen', 'btn')}
                                     onClick={handleFullScreen.exit}
