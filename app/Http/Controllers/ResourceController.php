@@ -21,8 +21,11 @@ class ResourceController extends Controller
         abort(404);
     }
 
-    public function subtitleFile () {
-        $file = public_path('test/subtitle.vtt');
+    public function subtitleFile(Request $request) {
+        $path_subtitle = $request->get('path_subtitle');
+        $path_subtitle = str_replace("storage/", "", $path_subtitle);
+        $file = Storage::disk('store_server')->path($path_subtitle);
+        
         return response()->file($file, [
             'Content-Type' => 'text/vtt',
             'Access-Control-Allow-Origin' => '*',

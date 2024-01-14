@@ -65,8 +65,30 @@ class CoursesController extends Controller
                         'name_folder_store' => $params[0],
                         'file_name' => $params[1],
                     ]);
-
-                    $lesson['path_subtitle'] = route('resource.subtitle');
+                }
+                if (!empty($lesson['path_subtitle_en'])) {
+                    $lesson['path_subtitle_en'] = route('resource.subtitle', [
+                        'path_subtitle' => $lesson['path_subtitle_en']
+                    ]);
+                }
+                else {
+                    $lesson['path_subtitle_en'] = null;
+                }
+                if (!empty($lesson['path_subtitle_jp'])) {
+                    $lesson['path_subtitle_jp'] = route('resource.subtitle', [
+                        'path_subtitle' => $lesson['path_subtitle_jp']
+                    ]);
+                }
+                else {
+                    $lesson['path_subtitle_jp'] = null;
+                }
+                if (!empty($lesson['path_subtitle_vi'])) {
+                    $lesson['path_subtitle_vi'] = route('resource.subtitle', [
+                        'path_subtitle' => $lesson['path_subtitle_vi']
+                    ]);
+                }
+                else {
+                    $lesson['path_subtitle_vi'] = null;
                 }
             }
 

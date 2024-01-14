@@ -13,9 +13,8 @@ function Tab({ tabData }) {
                 {tabData.map((tab) => (
                     <li key={tab.id} className="me-2">
                         <a
-                            href="#"
                             onClick={() => handleTabClick(tab.id)}
-                            className={`inline-block p-4 border-b-2 rounded-t-lg ${
+                            className={`inline-block p-4 border-b-2 rounded-t-lg cursor-pointer ${
                                 activeTab === tab.id
                                     ? 'text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500'
                                     : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'

@@ -19,6 +19,9 @@ return new class extends Migration
             $table->enum('type_content', ['video', 'document'])->nullable(true);
             $table->string('path_video')->nullable(true);
             $table->string('document_path')->nullable(true);
+            $table->string('path_subtitle_en')->nullable(true);
+            $table->string('path_subtitle_jp')->nullable(true);
+            $table->string('path_subtitle_vi')->nullable(true);
             $table->time('duration_lesson')->nullable(true);
             $table->integer('score')->nullable(true);
             $table->integer('chapters_id');

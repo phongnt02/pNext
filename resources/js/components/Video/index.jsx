@@ -164,7 +164,11 @@ function Video({ dataVideo }) {
                     onTimeUpdate={handleTimeUpdate}
                 >
                     {isSubtite && (
-                        <track src={dataVideo.path_subtitle} default></track>
+                        <>
+                            <track src={dataVideo.path_subtitle_en } kind="subtitles" label="Tiếng Anh" default></track>
+                            <track src={dataVideo.path_subtitle_vi } kind="subtitles" label="Tiếng Việt"></track>
+                            <track src={dataVideo.path_subtitle_jp } kind="subtitles" label="Tiếng Nhật" ></track>
+                        </>
                     )}
                 </video>
                 {isLoading && (
@@ -175,7 +179,7 @@ function Video({ dataVideo }) {
                 <div className={cx('controls')}>
                     <input name="progress" type="range" min="1" max="100"
                         className={cx('duration')}
-                        value={currentTime}
+                        value={`${currentTime}`}
                         onChange={handleChange}
                     ></input>
                     <div className="h-16 w-full flex justify-between items-center text-white">

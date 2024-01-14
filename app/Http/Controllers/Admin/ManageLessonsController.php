@@ -11,6 +11,7 @@ use App\Helpers\ListBag\ListBag;
 use App\Models\Lessons;
 use App\Models\Chapters;
 use App\Models\Courses;
+use App\Http\Service\Subtitle;
 
 class ManageLessonsController extends Controller
 {
@@ -62,6 +63,16 @@ class ManageLessonsController extends Controller
                     'path_video' => ($request->get('type_content') == 'video') ? $path : null,
                     'document_path' => ($request->get('type_content') == 'document') ? $path : null,
                 ];
+
+                if($request->get('subtitle') == "1" && ($request->get('type_content') == 'video')) {
+                    $subtitle = new Subtitle();
+                    $pathFileVttEn = $subtitle->saveSubtitleDefault($nameFolderStore, $dataInsert['path_video']);
+                    $pathFileVttVi = $subtitle->translateSubtitle('Vietnamese', $pathFileVttEn, $nameFolderStore, $dataInsert['path_video']);
+                    $pathFileVttJp = $subtitle->translateSubtitle('Japaneses', $pathFileVttEn, $nameFolderStore, $dataInsert['path_video']);
+                    $dataInsert['path_subtitle_en'] = $pathFileVttEn;
+                    $dataInsert['path_subtitle_vi'] = $pathFileVttVi;
+                    $dataInsert['path_subtitle_jp'] = $pathFileVttJp;
+                }
             }
 
             $this->lessons->create(array_merge($dataInsert, $request->all()));
