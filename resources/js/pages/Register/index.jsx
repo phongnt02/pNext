@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import 'flowbite';
 import Auth from "../../layouts/Auth";
 import { Link } from "react-router-dom";
@@ -45,6 +46,16 @@ const listFields = [
 ];
 
 function Register() {
+    const [dataLogin, setDataLogin] = useState({});
+
+    const getDataInput = (value, name) => {
+        setDataLogin((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+    console.log(dataLogin);
+
     const registerUser = (e) => {
         e.preventDefault();
     }
@@ -58,12 +69,18 @@ function Register() {
 
                 <form action="/login" method="POST" onClick={registerUser} className="grid gap-10 md:grid-cols-2 w-full mt-6 py-4">
                     {listFields.map((item, index) => (
-                        <Input key={index} label={item.label} type={item.type} name={item.name} placeholder={item.placeholder}></Input>
+                        <Input key={index} label={item.label} type={item.type}
+                            name={item.name} placeholder={item.placeholder}
+                            onDataInput={getDataInput}
+                        ></Input>
                     ))}
                     <div className="w-full flex items-center justify-between col-span-2">
-                        <label className="inline-block font-thin text-xl text-gray-600" htmlFor="remmember_login">
+                        <label className="inline-block font-thin text-xl text-gray-600" htmlFor="accept_policy">
                             <span>Chấp nhận các điều khoản của chúng tôi</span>
-                            <input className="w-6 h-6 ml-2 mb-1 border border-solid border-gray-300 rounded-md" type="checkbox" id="remmember_login" name="remmember_login"></input>
+                            <input className="w-6 h-6 ml-2 mb-1 border border-solid border-gray-300 rounded-md"
+                                type="checkbox" id="accept_policy" name="accept_policy"
+                                onChange={(e)=> getDataInput(e.target.checked, 'accept_policy')}
+                            ></input>
                         </label>
                     </div>
                     <Button primary large className="!m-0 col-span-2">Tạo tài khoản</Button>

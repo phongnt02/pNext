@@ -29,7 +29,7 @@ const Input = React.forwardRef(({ type, label, placeholder, onDataInput, classNa
         const value = e.target.value
         if (!value.startsWith(' ')) {
             setInputValue(value)
-            onDataInput(value)
+            onDataInput(value, name)
         }
     }
 
@@ -40,11 +40,11 @@ const Input = React.forwardRef(({ type, label, placeholder, onDataInput, classNa
         }
     }
     
-    const renderViews = () => {
+    const renderValidateAndEvent = () => {
         switch (type) {
             case 'email':
                 return !isEmail && (
-                    <p class="mt-4 text-xl text-red-500 dark:text-red-500">Vui lòng nhập đúng định dạng email</p>
+                    <p className="mt-4 text-xl text-red-500 dark:text-red-500">Vui lòng nhập đúng định dạng email</p>
                 );
             case 'search':
                 return;
@@ -71,7 +71,7 @@ const Input = React.forwardRef(({ type, label, placeholder, onDataInput, classNa
                 , { 'block w-[280px] h-16 p-3 ps-10 text-2xl text-gray-900 border border-gray-600 rounded-xl focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow': type == 'search' })}
                 onBlur={handleBlur}
                 onChange={(e) => handleChangeInput(e)} />
-            {renderViews()}
+            {renderValidateAndEvent()}
         </div>
     );
 })

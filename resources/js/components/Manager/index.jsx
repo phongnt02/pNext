@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useSelector,useDispatch } from 'react-redux';
-import { setInforLogin,setInforUser } from '../../ReduxToolkit/authSlice'
+import { setInforLogin } from '../../ReduxToolkit/authSlice'
 import request from "../../apiService/axiosConfig";
 import PopperHeadless from '../Popper/PopperHeadless'
 import classNames from 'classnames/bind';
@@ -75,7 +75,6 @@ function Manager() {
                     }
                 })
                 dispatch(setInforLogin({ isLogged: true, token: token }))
-                dispatch(setInforUser({ name: response.data.full_name, email: response.data.email }))
             }
 
             handleReLogin()
@@ -111,8 +110,8 @@ function Manager() {
     const htmlRender = (
         <div className={cx('menu')}>
            <Link className={cx('profile','menu-item')}>
-                <div className={cx('name')}>{user.name}</div>
-                <div className={cx('nickname')}>{user.email}</div>
+                {/* <div className={cx('name')}>{user.name}</div> */}
+                {/* <div className={cx('nickname')}>{user.email}</div> */}
            </Link>
             {options.length > 1 && (
                 <div className={cx('menu-item')}>

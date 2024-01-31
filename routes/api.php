@@ -14,13 +14,13 @@ use App\Http\Controllers\HomeController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+include "auth.php";
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['name' => 'home'], function () {
-    Route::any('/home', [HomeController::class, 'getDataDefault'])->name('home.getDataDefault');
+Route::controller(HomeController::class)->name('home')->group( function () {
+    Route::any('/home', 'getDataDefault')->name('home.getDataDefault');
 });
 
 Route::group(['name'=>'courses', 'prefix' => 'courses'], function () {

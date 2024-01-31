@@ -18,7 +18,6 @@ use App\Http\Controllers\ResourceController;
 |
 */
 
-include "auth.php";
 Route::group(['name' => 'admin', 'prefix' => 'admin'], function () {
 
     Route::group(['name' => 'dashboard'], function () {

@@ -23,7 +23,6 @@ function Header() {
                     }
                 })
                 dispatch(setInforLogin({isLogged : true, token : Cookies.get('Token_login')}))
-                dispatch(setInforUser({name : response.data.full_name, email : response.data.email}))
             }
         }
 

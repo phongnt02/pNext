@@ -1,7 +1,13 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 import Auth from "../../layouts/Auth";
-import { Link } from "react-router-dom";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import Loading from '../../components/Loading'
+import auth from '../../apiService/authService';
+import { setInforLogin } from '../../ReduxToolkit/authSlice'
 const listFields = [
     {
         label: 'Tên đăng nhập',
@@ -19,26 +25,80 @@ const listFields = [
 ];
 
 function Login() {
+    const [dataLogin, setDataLogin] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const getDataInput = (value, name) => {
+        setDataLogin((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+    const handleLoginAccount = async (e) => {
+        e.preventDefault();
+        try {
+            setIsLoading(true);
+            const data = await auth.loginWithAccount(
+                dataLogin.user_name,
+                dataLogin.password
+            );
+
+            if (data.error === "Unauthorized") {
+                console.log("Thử đăng nhập lại");
+            } else {
+                dispatch(
+                    setInforLogin({
+                        isLogged: true,
+                        token: data.token,
+                        user_name: data.user_name,
+                    })
+                );
+                Cookies.set('Token_login', data.token)
+                navigate("../");
+            }
+        } catch (error) {
+            console.error("Error logging in:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <Auth>
             <div className="w-full h-full">
+                {isLoading ? (
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                        <Loading></Loading>
+                    </div>
+                ) : null }
                 <h3 className="text-4xl mb-6">Chào mừng</h3>
                 <p className="text-3xl text-gray-500 font-light not-italic font-sans">Bắt đầu trang web của bạn sau vài giây. Bạn chưa có tài khoản? Hãy đăng ký
                     <Link className="text-blue-500" to="/register"> tại đây.</Link></p>
 
-                <form action="" method="POST" className="grid gap-10 md:grid-cols-1 w-full mt-6 py-4">
+                <form method="POST" className="grid gap-10 md:grid-cols-1 w-full mt-6 py-4">
                     {listFields.map((item, index) => (
-                        <Input key={index} label={item.label} type={item.type} name={item.name} placeholder={item.placeholder}></Input>
+                        <Input key={index} label={item.label} type={item.type}
+                            name={item.name} placeholder={item.placeholder}
+                            onDataInput={getDataInput}
+                        ></Input>
                     ))}
                     <div className="w-full flex items-center justify-between">
                         <label className="inline-block font-thin text-xl text-gray-600" htmlFor="remmember_login">
                             <span>Ghi nhớ đăng nhập</span>
-                            <input className="w-6 h-6 ml-2 mb-1 border border-solid border-gray-300 rounded-md" type="checkbox" id="remmember_login" name="remmember_login"></input>
+                            <input className="w-6 h-6 ml-2 mb-1 border border-solid border-gray-300 rounded-md"
+                                type="checkbox" id="remmember_login" name="remmember_login"
+                                onChange={(e) => getDataInput(e.target.checked, 'remmember_login')}
+                            ></input>
                         </label>
                         <Button to="/forget">Quên mật khẩu</Button>
                     </div>
-                    <Button primary large className="!m-0">Đăng nhập</Button>
+                    <Button type="submit" primary large className="!m-0"
+                        onClick={handleLoginAccount}
+                        disabled={isLoading}
+                    >Đăng nhập</Button>
                 </form>
 
                 <div className="inline-flex items-center justify-center w-full mt-6">
