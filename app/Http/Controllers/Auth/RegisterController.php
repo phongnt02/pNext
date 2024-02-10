@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Auth\RegisterUserRequest;
+use Illuminate\Support\Carbon;
+
 
 class RegisterController extends Controller
 {
@@ -15,7 +17,9 @@ class RegisterController extends Controller
 
         DB::beginTransaction();
         try {
-            $user = User::create($request->all());
+            $dobFormatted = Carbon::createFromFormat('d/m/Y', $request->input('dob'))->format('Y-m-d');
+
+            $user = User::create(array_merge($request->all(), ['dob' => $dobFormatted]));
 
             $token = $user->createToken('api-token')->plainTextToken;
 
